@@ -7,7 +7,7 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/zetamatta/go-outputdebug"
+	//"github.com/zetamatta/go-outputdebug"
 )
 
 const (
@@ -18,7 +18,6 @@ const (
 
 var (
 	kernel32           = syscall.MustLoadDLL("kernel32.dll")
-	ntdll              = syscall.MustLoadDLL("ntdll.dll")
 	VirtualAlloc       = kernel32.MustFindProc("VirtualAlloc")
 	RtlMoveMemory      = kernel32.MustFindProc("RtlMoveMemory")
 	outputDebugStringW = kernel32.MustFindProc("OutputDebugStringW")
@@ -34,7 +33,8 @@ func outputdebugstring(s string) {
 func checkErr(err error) {
 	if err != nil {
 		if err.Error() != "The operation completed successfully." {
-			outputdebug.String("os.Args > 1")
+			outputdebugstring("os.Args > 1")
+			//outputdebug.String("os.Args > 1")	
 			println(err.Error())
 			os.Exit(1)
 		}
